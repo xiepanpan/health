@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -157,12 +158,13 @@ public class AdminController {
 	 * @throws UnsupportedEncodingException
 	 */
 	@RequestMapping(value = "user/edit")
-	public String userEdit(Integer id, Model model, String error) throws UnsupportedEncodingException {
+	public String userEdit(Integer id,String flag, Model model, String error) throws UnsupportedEncodingException {
 		if (error != null) {
 			model.addAttribute("error", URLDecoder.decode(error, "utf-8"));
 		}
 		Users user = usersService.findByKey(id);
 		model.addAttribute("item", user);
+		model.addAttribute("flag", flag);
 		return "admin/user/edit";
 	}
 	/**
@@ -173,7 +175,7 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "user/update")
-	public String userUpdate(Users users) {
+	public String userUpdate(Users users,String flag) {
 
 //		if (id == 1) {
 //			log.error("权限不足，修改会员信息失败");
@@ -184,18 +186,22 @@ public class AdminController {
 
 		log.info("修改信息：" + users.toString());
 		usersService.update(users);
+		if ("person".equals(flag)) {
+			return "redirect:/admin/user/lstPerson?r=" + users.getUserType();
+		}
 		return "redirect:/admin/user/lst?r=" + users.getUserType();
 	}
 	
 	
 	@RequestMapping(value = "user/edit_info")
-	public String userEditInfo(Integer id, Model model, String error) throws UnsupportedEncodingException {
+	public String userEditInfo(Integer id,String flag, Model model, String error) throws UnsupportedEncodingException {
 		if (error != null) {
 			model.addAttribute("error", URLDecoder.decode(error, "utf-8"));
 		}
 		
 		Users user = usersService.findByKey(id);
 		model.addAttribute("item", user);
+		model.addAttribute("flag", flag);
 		return "admin/user/edit_info";
 	}
 	
@@ -211,9 +217,18 @@ public class AdminController {
 		}
 		return res;
 	}
-	
+
+	/**
+	 * 更新用户信息
+	 * @param user
+	 * @param flag
+	 * @param model
+	 * @param error
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@RequestMapping(value = "user/update_info")
-	public String userUpdateInfo(Users user, Model model, String error) throws UnsupportedEncodingException {
+	public String userUpdateInfo(Users user,String flag, Model model, String error) throws UnsupportedEncodingException {
 //		if (user.getUserId() == 1) {
 //			log.error("权限不足，修改会员信息失败");
 //			return "redirect:/admin/user/edit";
@@ -221,6 +236,9 @@ public class AdminController {
 		
 		log.info("修改信息：" + user.toString());
 		usersService.update(user);
+		if ("person".equals(flag)) {
+			return "redirect:/admin/user/lstPerson?r=" + user.getUserType();
+		}
 		return "redirect:/admin/user/lst?r=" + user.getUserType();
 	}
 	 

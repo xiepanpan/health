@@ -28,11 +28,11 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
         if (user != null && user.getUserId() != null) {
             log.info("#用户已登录#" + user.toString());
 
-            if(user.getUserType() != 0){
-                log.info("# 非管理员用户无法登陆 #");
-                response.sendRedirect("/login/admin_login?error=" + URLEncoder.encode("非管理员用户无法登陆","utf-8"));
-                return false;
-            }
+//            if(user.getUserType() != 0){
+//                log.info("# 非管理员用户无法登陆 #");
+//                response.sendRedirect("/login/admin_login?error=" + URLEncoder.encode("非管理员用户无法登陆","utf-8"));
+//                return false;
+//            }
             log.info("#用户拥有管理员权限#");
             return true;
         }else {

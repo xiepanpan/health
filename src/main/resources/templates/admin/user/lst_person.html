@@ -3,7 +3,7 @@
 <head th:include="tmpl/header :: header_meta">
 </head>
 <body>
-<nav th:replace="tmpl/header :: breadcrumb('系统管理','用户管理')"></nav>
+<nav th:replace="tmpl/header :: breadcrumb('系统管理','个人资料管理')"></nav>
 <article class="page-container">
 <!--    <div class="cl pd-5 bg-1 bk-gray mt-20">-->
 <!--        <span class="l">-->
@@ -35,9 +35,9 @@
                 <td th:text="${item.email}"></td>
                 <td th:text="${item.school}"></td>
                 <td class="td-manage">
-                	<a title="编辑" th:href="@{/admin/user/edit_info?id={id}(id=${item.userId})}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>编辑</a>
+                	<a title="编辑" th:href="@{/admin/user/edit_info?flag=person&id={id}(id=${item.userId})}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>编辑</a>
                 
-                    <a title="修改密码" th:href="@{/admin/user/edit?id={id}(id=${item.userId})}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>修改密码</a>
+                    <a title="修改密码" th:href="@{/admin/user/edit?flag=person&id={id}(id=${item.userId})}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>修改密码</a>
                     <a title="删除" th:data-id="${item.userId}"  class="ml-5 btn-del" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>删除</a>
                 </td>
             </tr>

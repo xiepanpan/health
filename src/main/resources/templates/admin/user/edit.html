@@ -7,7 +7,8 @@
 <article class="page-container">
     <form  th:action="@{/admin/user/update}" method="post" class="form form-horizontal" id="form-member-add" >
         <div class="row cl" id="prev_num">
-            <input type="hidden" name="id" th:value="${item.userId}" />
+            <input type="hidden" name="flag" th:value="${flag}" />
+            <input type="hidden" name="userId" th:value="${item.userId}" />
             <input type="hidden" name="userType" th:value="${item.userType}" />
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
