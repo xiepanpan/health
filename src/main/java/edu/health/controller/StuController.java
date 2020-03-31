@@ -81,9 +81,9 @@ public class StuController {
 		p = (p==null)?1:p;
 		List<PhysicalExamJoinUser> list = physicalExamService.query((int)session.getAttribute("user_id"), null, null, p, size);
 		int count = physicalExamService.count((int)session.getAttribute("user_id"), null, null);
-		String page = new PageUtil(size, count, p, "/admin/physical/stu_lst").page();
+		String page = new PageUtil(size, count, p, "/stu/pyexam/lst?").page();
 		List<Users> doctLst = usersService.query(2, null, 1, 1000);
-		log.error(list.get(0).toString() + list.get(0).getTestId());
+//		log.error(list.get(0).toString() + list.get(0).getTestId());
 		model.addAttribute("doctLst", doctLst);
 		model.addAttribute("list",list);
 		model.addAttribute("page",page);

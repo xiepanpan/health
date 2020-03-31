@@ -24,8 +24,8 @@ public class DoctorLoginInterceptor implements HandlerInterceptor {
         log.warn("################ BBS 登陆 拦截器触发 ###################");
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
-
-        if (user != null && user.getUserId() != null && user.getUserType() == 2) {
+// && user.getUserType() == 2
+        if (user != null && user.getUserId() != null) {
             log.info("#医生已登录#" + user.toString());
             return true;
         }else {

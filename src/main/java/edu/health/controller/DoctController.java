@@ -96,7 +96,7 @@ public class DoctController {
 		Integer doctId = (Integer) session.getAttribute("user_id");
 		List<PhysicalExamJoinUser> list = physicalExamService.query(null, doctId, tel, p, size);
 		int count = physicalExamService.count(null, null, tel);
-		String page = new PageUtil(size, count, p, "/doct/pyexam/lst").page();
+		String page = new PageUtil(size, count, p, "/doct/pyexam/lst?").page();
 		List<Users> doctLst = usersService.query(2, null, 1, 1000);
 		model.addAttribute("doctLst", doctLst);
 		model.addAttribute("list",list);

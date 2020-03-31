@@ -187,7 +187,7 @@ public class AdminController {
 		log.info("修改信息：" + users.toString());
 		usersService.update(users);
 		if ("person".equals(flag)) {
-			return "redirect:/admin/user/lstPerson?r=" + users.getUserType();
+			return "redirect:/admin/user/lstPerson?r=" + users.getUserType()+"&id="+users.getUserId();
 		}
 		return "redirect:/admin/user/lst?r=" + users.getUserType();
 	}
@@ -237,7 +237,7 @@ public class AdminController {
 		log.info("修改信息：" + user.toString());
 		usersService.update(user);
 		if ("person".equals(flag)) {
-			return "redirect:/admin/user/lstPerson?r=" + user.getUserType();
+			return "redirect:/admin/user/lstPerson?r=" + user.getUserType()+"&id="+user.getUserId();
 		}
 		return "redirect:/admin/user/lst?r=" + user.getUserType();
 	}

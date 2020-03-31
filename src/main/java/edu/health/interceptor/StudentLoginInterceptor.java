@@ -25,7 +25,8 @@ public class StudentLoginInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
 
-        if (user != null && user.getUserId() != null && user.getUserType() == 1) {
+//        && user.getUserType() == 1
+        if (user != null && user.getUserId() != null ) {
             log.info("#学生登录#" + user.toString());
             return true;
         }else {
