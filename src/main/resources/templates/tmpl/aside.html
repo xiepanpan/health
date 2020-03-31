@@ -5,6 +5,15 @@
 <div th:fragment="admin_aside"  >
     <aside class="Hui-aside">
         <div class="menu_dropdown bk_2">
+            <dl id="menu-person">
+                <dt><i class="Hui-iconfont">&#xe60d;</i> 个人资料管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <input id="login_user_id" type="hidden" th:value="${session.user_id}" />
+                    <ul>
+                        <li><a th:data-href="@{/admin/user/lstPerson?id={userId}(userId=${session.user_id})}" data-title=" 个人资料管理" href="javascript:;"> 个人资料管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
             <dl id="menu-member">
                 <dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>

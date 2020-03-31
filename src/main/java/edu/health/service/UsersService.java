@@ -39,7 +39,14 @@ public class UsersService {
 		if(p==null) {
 			p = 1;
 		}
-		return usersMapper.query(type, name, (p-1)*size, size);
+		return usersMapper.query(type, name, (p-1)*size, size,null);
+	}
+
+	public List<Users> queryById(Integer type, String name, Integer p, Integer size,Integer id){
+		if(p==null) {
+			p = 1;
+		}
+		return usersMapper.query(type, name, (p-1)*size, size,id);
 	}
 	
 }

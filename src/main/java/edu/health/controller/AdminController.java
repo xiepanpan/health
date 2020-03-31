@@ -3,6 +3,7 @@ package edu.health.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -77,6 +78,32 @@ public class AdminController {
 	}
 
 	/**
+	 * 个人信息列表
+	 * @param r
+	 * @param name
+	 * @param p
+	 * @param model
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "user/lstPerson")
+	public String userlstPerson(Integer r,String name, Integer p, Model model,Integer id) {
+
+		if (p == null) {
+			p = 1;
+		}
+		if (name != null && name.trim().length() == 0) {
+			name = null;
+		}
+		List<Users> lst = usersService.queryById(r, name, p, 10,id);
+		model.addAttribute("list", lst);
+		model.addAttribute("name", name);
+		model.addAttribute("r", r);
+		model.addAttribute("", r);
+		return "admin/user/lst_person";
+	}
+
+	/**
 	 * 用户新新增
 	 * 
 	 * @param error
@@ -122,7 +149,7 @@ public class AdminController {
 		return "redirect:/admin/user/lst?r="+user.getUserType();
 	}
 	/**
-	 * 用户修改
+	 * 用户密码修改
 	 * @param id
 	 * @param model
 	 * @param error
@@ -146,21 +173,18 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "user/update")
-	public String userUpdate(Integer id, String loginPwd, Model model) {
+	public String userUpdate(Users users) {
 
-		if (id == 1) {
-			log.error("权限不足，修改会员信息失败");
-			return "redirect:/admin/user/edit";
-		}
+//		if (id == 1) {
+//			log.error("权限不足，修改会员信息失败");
+//			return "redirect:/admin/user/edit";
+//		}
 
 		// todo 限定参数
-		Users user = new Users();
-		user.setUserId(id);
-		user.setLoginPwd(loginPwd);
 
-		log.info("修改信息：" + user.toString());
-		usersService.update(user);
-		return "redirect:/admin/user/lst?r=" + user.getUserType();
+		log.info("修改信息：" + users.toString());
+		usersService.update(users);
+		return "redirect:/admin/user/lst?r=" + users.getUserType();
 	}
 	
 	
@@ -190,10 +214,10 @@ public class AdminController {
 	
 	@RequestMapping(value = "user/update_info")
 	public String userUpdateInfo(Users user, Model model, String error) throws UnsupportedEncodingException {
-		if (user.getUserId() == 1) {
-			log.error("权限不足，修改会员信息失败");
-			return "redirect:/admin/user/edit";
-		}
+//		if (user.getUserId() == 1) {
+//			log.error("权限不足，修改会员信息失败");
+//			return "redirect:/admin/user/edit";
+//		}
 		
 		log.info("修改信息：" + user.toString());
 		usersService.update(user);

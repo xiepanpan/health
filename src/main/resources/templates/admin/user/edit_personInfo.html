@@ -9,7 +9,6 @@
         <div class="row cl" id="prev_num">
             <input type="hidden" name="userId" th:value="${item.userId}" />
             <div class="row cl">
-                <input type="hidden" name="userType" th:value="${item.userType}">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>联系电话：</label>
                 <div class="formControls col-xs-4 col-sm-4">
                     <input type="number" class="input-text" th:value="${item.tel}"  placeholder=""   name="tel" minlength="3" >

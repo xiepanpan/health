@@ -108,6 +108,9 @@ public interface UsersMapper {
 		"<if test='type != null'>",
 		"and user_type=#{type, jdbcType=INTEGER}",
 		"</if>",
+			"<if test='id != null'>",
+			"and user_id=#{id, jdbcType=INTEGER}",
+			"</if>",
 		"limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}",
 		"</script>"
 	})
@@ -120,5 +123,5 @@ public interface UsersMapper {
 		@Result(column = "email", property = "email", jdbcType = JdbcType.VARCHAR),
 		@Result(column = "avatar", property = "avatar", jdbcType = JdbcType.VARCHAR),
 		@Result(column = "school", property = "school", jdbcType = JdbcType.VARCHAR) })
-	List<Users> query(@Param("type") Integer type,@Param("name") String name, @Param("start") Integer start, @Param("size") Integer size);
+	List<Users> query(@Param("type") Integer type,@Param("name") String name, @Param("start") Integer start, @Param("size") Integer size,Integer id);
 }
