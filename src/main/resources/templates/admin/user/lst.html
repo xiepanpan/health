@@ -47,7 +47,6 @@
 </article>
 <footer th:replace="tmpl/footer :: footer_script"></footer>
 <script type="text/javascript">
-    $(function() {
         $(".btn-del").click(function () {
             $.ajax({
                 url: "/admin/user/del",
@@ -58,7 +57,6 @@
                 }
             });
         });
-    });
 
     function member_add(){
         layer_show("新增用户","/admin/user/add");
