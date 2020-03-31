@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry location="C:\Users\0c4d\.m2\repository\mysql\mysql-connector-java\5.1.28\mysql-connector-java-5.1.28.jar"/>
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://127.0.0.1:3306/health" driverClass="com.mysql.jdbc.Driver" password="123456" userId="root" >
+    	<!--MySQL 8.x 需要指定服务器的时区-->
+		<property name="serverTimezone" value="UTC"/>
+		<!--MySQL 不支持 schema 或者 catalog 所以需要添加这个-->
+		<!--参考 : http://www.mybatis.org/generator/usage/mysql.html-->
+		<property name="nullCatalogMeansCurrent" value="true"/>
+    </jdbcConnection>
+    
+    <javaModelGenerator targetPackage="edu.health.model" targetProject="health" >
+    	<property name="enableSubPackages" value="true"/>
+        <property name="trimStrings" value="true"/>
+    </javaModelGenerator>
+    <!-- type:XMLMAPPER ANNOTATEDMAPPER MIXEDMAPPER -->
+    <javaClientGenerator targetPackage="edu.health.dao" targetProject="health" type="ANNOTATEDMAPPER" />
+   <!--  <table tableName="users" domainObjectName="Users"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    </table>
+  	<table tableName="topic" domainObjectName="Topic"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  	
+  	<table tableName="category" domainObjectName="Category"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> 
+  	<table tableName="fav" domainObjectName="Fav"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  
+  	<table tableName="users" domainObjectName="Users"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  	
+  <table tableName="physical_exam" domainObjectName="PhysicalExam"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  
+  	
+  	<table tableName="topic" domainObjectName="Topic"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  	<table tableName="cmt" domainObjectName="Cmt"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  	-->
+  	<table tableName="users" domainObjectName="Users"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  	</context>
+</generatorConfiguration>

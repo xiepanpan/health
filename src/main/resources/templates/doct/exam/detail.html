@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+<!--<nav th:replace="tmpl/header :: breadcrumb('会员管理','职工管理')"></nav>-->
+<article class="page-container">
+    <form  th:action="@{/doct/exam/detailUpdate}" method="post" class="form form-horizontal" id="form-member-add" >
+            <input type="hidden" name="id" th:value="${userExam.examId}" />
+            <input type="hidden" name="stuId" th:value="${userExam.userId}" />
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标题：</label>
+                <div class="formControls col-xs-4 col-sm-4">
+                    <input type="text" class="input-text" disabled="disabled" th:value="${exam.examName}" minlength="3">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>内容：</label>
+                <div class="formControls col-xs-4 col-sm-4" th:utext="${userExam.answer}">
+                     
+                </div>
+            </div>
+            
+             <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>内容：</label>
+                <div class="formControls col-xs-4 col-sm-4" >
+                    <textarea class="input-text" name="advice" style="height:120px;" th:text="${userExam.advice}"></textarea>
+                </div>
+            </div>
+            
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+<footer th:include="tmpl/footer :: footer_script"></footer>
+
+<footer th:include="bbs/tmpl/kindeditor::kindeditor_script"></footer>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</body>
+</html>

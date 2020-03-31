@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace ="bbs/tmpl/header :: header_meta">
+</head>
+<body>
+	<header class="header container bg-white">
+		<a class="pull-right" th:href="@{/user/add}">
+			<i class="fa fa-plus"></i>&nbsp;发布
+		</a>
+		<a class="pull-left" href="javascript:history.go(-1);"><i class="fa fa-angle-left"></i>&nbsp;返回</a>
+		我的帖子
+	</header>
+	
+	<div class="container mt10">
+		<img class="thumb-w" th:src="@{/bbs/images/banner.png}" />
+	</div>
+	
+	<div id="topic-list" class="container bg-white">
+		
+	</div>
+	
+	<div id="footer" >
+		<a class="item" th:href="@{/index/index}">
+			<i class="fa fa-home"></i>
+			<span>首页</span>
+		</a>
+		<a class="item on" th:href="@{/user/lst}">
+			<i class="fa fa-user-o"></i>
+			<span>我发布的</span>
+		</a>
+		<a class="item" th:href="@{/user/fav_lst}">
+			<i class="fa fa-heart-o"></i>
+			<span>我关注的</span>
+		</a>
+	</div>
+	<script type="text/javascript" th:src="@{/bbs/js/plugin.js}"></script>
+	<script type="text/javascript">
+		var global_param = {};
+		$(function(){
+			more();
+		});
+		
+		function more(wrap){
+			$.ajax({
+				url:"/index/lst",
+					type:"post",
+					dataType:"json",
+					data:{self_topic:1},
+					success:function(data){
+						topic_init_2($("#topic-list"), data['result_arr']['lst']);
+					}
+			})
+		}
+		
+		function generate_param(){
+			var param = {}
+			param['self_topic'] = 1;
+			param['p'] = 1;
+			global_param = param;
+			console.log(param);
+		}
+	</script>
+</body>
+</html>

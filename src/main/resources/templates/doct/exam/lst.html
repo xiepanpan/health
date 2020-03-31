@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+<nav th:replace="tmpl/header :: breadcrumb('后台管理','帖子管理')"></nav>
+<article class="page-container">
+    <!-- <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a th:href="@{/admin/exam/add?(type=${type})}"   class="btn btn-primary radius">
+                <i class="Hui-iconfont">&#xe600;</i>
+				<span >添加测试</span>
+            </a>
+        </span>
+        <span class="r">共有：<strong th:text="${lst.size()}"></strong> 条</span>
+    </div> -->
+    <div class="mt-20">
+
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="80">ID</th>
+                <th width="100">测试名称</th>
+                <th width="100">测试类型</th>
+                <th width="260">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="item,itemStat : ${lst}">
+                <td th:text="${item.examId}"></td>
+                <td th:text="${item.examName}"></td>
+                <td >
+                	<span th:if="${item.examType == 1}">生活习惯</span>
+                	<span th:if="${item.examType == 2}">心理健康</span>
+                </td>
+                <td class="td-manage">
+                	<a th:href="@{/doct/exam/stu_lst(id=${item.examId})}">学生情况</a>
+                 </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</article>
+<footer th:replace="tmpl/footer :: footer_script"></footer>
+<script type="text/javascript">
+    $(function(){
+
+    });
+</script>
+</body>
+</html>

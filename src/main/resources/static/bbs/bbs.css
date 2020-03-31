@@ -1,0 +1,138 @@
+@charset "UTF-8";
+*{
+	margin:0;padding:0;font-size:100%;box-sizing: border-box;
+}
+html,body{
+	font-size:14px;background-color:#f2f2f2;font-family: "微软雅黑";
+	
+}
+.container{
+	display:block;width:100%;max-width:1366px;margin:0 auto;position:relative;left:0;top:0;
+}
+.hr-gray{
+	display:block;clear:both;border:none;border-bottom:4px solid #f2f2f2;
+}
+.ph20{
+	padding:0 20px;
+}
+.mt10{margin-top:10px;}
+.mt20{margin-top:20px;}
+.clear{display:block;clear:both;}
+.clear:after{
+	content:"";display:block;clear:both;
+}
+.bg-white{background-color:white;}
+
+.topic-item{
+	display:block;padding:15px 20px 10px;border-bottom:1px solid #ddd;
+}
+.topic-item header .date,.topic-item header .topic-edit,.topic-item header .topic-del{
+	float:right;font-size:14px;color:#666;padding-right:10px;
+}
+.topic-item header .avatar{
+	float:left;
+	display:block;width:36px;height:36px;border-radius:50%;border:1px solid #ddd;
+}
+.topic-item header .nick{
+	padding-left:10px;
+	line-height:36px;float:left;display:block;height:36px;font-size:16px;color:#333;
+}
+.topic-item header{margin-bottom:10px;}
+.topic-item article h4{
+	font-size:16px;font-weight:600;color:#333;margin-bottom:8px;
+}
+.topic-item article p{
+	line-height:20px;font-size:14px;color:#888;overflow:hidden;
+}
+.topic-item article p img{
+	max-width:100%;
+}
+.topic-item footer .rt{
+	float:right;line--height:30px;height:30px;padding:0 10px;font-size:14px;color:#666;
+}
+
+#detail{
+	padding:32px 20px;
+}
+#detail h4{
+	font-size:22px;text-align:center;margin-bottom:12px;color:#333;
+}
+#detail p.info{
+	font-size:14px;color:#666;text-align:center;padding-bottom:12px;
+	border-bottom:1px solid #ddd;margin-bottom:32px;
+}
+#detail #content{
+	font-size:14px;color:#888;text-indent:2em;line-height:1.4em;
+}
+#detail #content p{
+	margin-bottom:8px;overflow:hidden;
+}
+#detail #content img{
+	
+	max-width:100%;
+}
+#cmt{
+	padding:0 20px;
+}
+#cmt h4{
+	display:block;height:40px;line-height:40px;border-bottom:1px solid #ddd;font-size:18px;text-indent:.5em;margin-bottom:8px;
+}
+#cmt .cmt-item{
+	display:block;border-bottom:1px dashed #ddd;position:relative;left:0;top:0;
+}
+#cmt .cmt-item:after{content:"";display:block;clear:both;}
+#cmt .cmt-item .thumb{
+	padding:8px 10px;float:left;
+}
+#cmt .cmt-item .thumb img{display:block;width:28px;height:28px;border-radius:50%;border:1px solid #ddd;overflow:hidden;float:left;}
+#cmt .cmt-item .thumb span.nick{float:left;line-height:28px;padding-left:10px;font-size:14px;width:80px;overflow:hidden;}
+#cmt .cmt-item .cmt{
+	border-left:1px solid #ddd;
+	margin-left:90px;
+	padding:10px 15px;
+}
+#cmt .cmt-item .reply{
+	display:block;position:absolute;right:10px;top:8px;
+}
+#cmt .cmt-item .cmt-content{
+	display:block;padding-bottom:10px;border-bottom:1px solid #ddd;
+	margin-bottom:8px;
+}
+#cmt .cmt-item .reply-content{
+	display:block;padding:12px 8px 8px;border-left:1px solid #ddd;
+	margin-left:130px;
+}  
+
+#topic h4#title, #topic #topic-content {
+	display: block;
+	width: 1024px;
+	margin: 0 auto;
+}
+#topic{
+	background-color:white;padding:20px 35px;
+}
+#topic h4#title {
+	text-align: center;
+	line-height: 28px;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px 0 22px;
+}
+
+#topic #topic-content {
+	text-align: left;
+	text-indent: 2em;
+	line-height: 22px;
+	font-size: 14px;
+	margin-bottom:35px;
+}
+
+#topic-content p {
+	padding-bottom: 10px;
+}
+
+.reply-textarea {
+	display: block;
+	width: 100%;
+	height: auto;
+}

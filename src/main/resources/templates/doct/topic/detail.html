@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+	<!--<nav th:replace="tmpl/header :: breadcrumb('会员管理','职工管理')"></nav>-->
+	<article class="page-container">
+		<div id="topic">
+			<h4 id="title" th:text="${item.title}"></h4>
+			<div id="topic-content" th:utext="${item.content}"></div>
+			<div id="cmt" class="container bg-white mt10">
+				<h4>
+					<a id="cmt-topic" th:data-id="${item.articleId}" cmt-type="topic"
+						style="float: right; padding-right: 10px; font-size: 14px; color: #c24050;">评论</a>
+					评论
+				</h4>
+
+				<div class="cmt-item" th:each="cmt: ${cmt_lst}">
+					<div class="thumb">
+						<span class="nick" th:text="${cmt.stuName}"></span>
+					</div>
+					<div class="cmt">
+						<div class="cmt-content" th:text="${cmt.content}"></div>
+						<div style="border-bottom: 1px solid #ddd;font-size:12px;">
+						回复：
+							<span th:text="${cmt.repeat}"></span>
+							</div>
+					</div>
+					<a class="reply" th:data-id="${cmt.cmtId}" cmt-type="cmt">回复</a>
+					<div class="clear"></div>
+				</div>
+				<h4 id="reply">回复：</h4>
+				<form action="/doct/cmt/cmt" id="form" method="post">
+					<input type="hidden" name="topicId" th:value="${item.articleId}" />
+					<input type="hidden" name="cmtId"  />
+					<div style="padding-bottom: 20px;">
+						<textarea placeholder="请输入回复" name="content" class="reply-textarea mt10"></textarea>
+						<a class="btn mt10" id="pub_cmt" style="float: right;">提交</a> <span
+							class="clear"></span>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</article>
+
+	<footer th:include="tmpl/footer :: footer_script"></footer>
+
+	<footer th:include="bbs/tmpl/kindeditor::kindeditor_script"></footer>
+	<script type="text/javascript">
+		$(function(){
+			$(".reply").click(function(){
+				$("input[name='cmtId']").val($(this).attr("data-id"));
+			})
+			$("#pub_cmt").click(function(){
+				if($("input[name='cmtId']").val().length == 0){
+					alert("请选择要回复的对象");
+					return;
+				}
+				$("#form").submit();
+			});
+		})
+	</script>
+</body>
+</body>
+</html>

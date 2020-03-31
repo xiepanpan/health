@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head th:fragment="kindeditor_link">
+    <link rel="stylesheet" th:href="@{/lib/kindeditor/themes/default/default.css}" />
+    <link rel="stylesheet" th:href="@{/lib/kindeditor/plugins/code/prettify.css}" />
+</head>
+
+<header th:fragment="kindeditor_script">
+    <script charset="utf-8" th:src="@{/lib/kindeditor/kindeditor-all.js}"></script>
+    <script charset="utf-8" th:src="@{/lib/kindeditor/lang/zh-CN.js}"></script>
+    <script>
+        var editor = KindEditor.create('textarea[name="topicContent"]', {
+            uploadJson :  '/kindeditor/fileUpload',
+            fileManagerJson :  '/kindeditor/fileManager',
+            allowFileManager : true,
+            afterBlur:function(){
+                this.sync();
+            },
+            items : ['source', '|', 'undo', 'redo', '|', 'preview', 'template', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','multiimage',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink']
+        });
+    </script>
+
+</header>
+
+</html>

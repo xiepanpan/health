@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace ="bbs/tmpl/header :: header_meta">
+</head>
+<body>
+	<header class="header container bg-white">
+		<a class="pull-left" href="javascript:history.go(-1);"><i class="fa fa-angle-left"></i>&nbsp;返回</a>
+		我的关注
+	</header>
+	
+	<div class="container mt10">
+		<img class="thumb-w" th:src="@{/bbs/images/banner.png}" />
+	</div>
+	
+	<div id="topic-list" class="container bg-white">
+	
+		<div class="topic-item" th:data-id="${item.topicId}" th:each="item,itemStat : ${lst}">
+			<header>
+				<span class="date">14:35</span>
+				<img class="avatar" />
+				<span class="nick">Admin</span>
+				<span class="clear"></span>
+			</header>
+			<article>
+				<h4 th:text="${item.topicTitle}"></h4>
+				<p>
+					你是不是也是这样你是不是也是这样你是不是也是这样你是不是也是这样你是不是也是这样你是不是也是这样
+				</p>
+			</article>
+			<footer>
+				<span class="fav rt"><i class="fa fa-heart-o"></i></span>
+				<span class="cmt rt"><i class="fa fa-comment-o"></i>&nbsp; 0</span>
+				<span class="clear"></span>
+			</footer>
+		</div>
+	</div>
+	
+	<div id="footer" >
+		<a class="item" th:href="@{/index/index}">
+			<i class="fa fa-home"></i>
+			<span>首页</span>
+		</a>
+		<a class="item " th:href="@{/user/lst}">
+			<i class="fa fa-user-o"></i>
+			<span>我发布的</span>
+		</a>
+		<a class="item on" th:href="@{/user/fav_lst}">
+			<i class="fa fa-heart-o"></i>
+			<span>我关注的</span>
+		</a>
+	</div>
+	<script type="text/javascript" th:src="@{/bbs/js/plugin.js}"></script>
+	<script type="text/javascript">
+		var global_param = {};
+		$(function(){
+			generate_param();
+			more($("#topic-list"));
+		});
+		
+		function more(wrap){
+			$.ajax({
+				url:"lst",
+					type:"post",
+					dataType:"json",
+					data:global_param,
+					success:function(data){
+						topic_init($("#topic-list"), data['result_arr']['lst']);
+					}
+			})
+		}
+		
+		function generate_param(){
+			var param = {}
+			param['self_topic'] = 1;
+			param['p'] = 1;
+			global_param = param;
+			console.log(param);
+		}
+	</script>
+</body>
+</html>

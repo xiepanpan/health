@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+<nav th:replace="tmpl/header :: breadcrumb('系统管理','用户管理')"></nav>
+<article class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a th:href="@{/admin/user/add(r=${r})}"   class="btn btn-primary radius">
+                <i class="Hui-iconfont">&#xe600;</i>
+				<span>添加用户</span>
+            </a>
+        </span>
+        <span class="r">共有数据：<strong th:text="${list.size()}"></strong> 条</span>
+    </div>
+    <div class="mt-20">
+
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="80">编号</th>
+                <th width="100">账户</th>
+                <th >手机</th>
+                <th >邮箱</th>
+                <th >头像</th>
+                <th width="260">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="item,itemStat : ${list}">
+                <td th:text="${item.userId}"></td>
+                <td th:text="${item.loginName}"></td>
+                <td th:text="${item.tel}"></td>
+                <td th:text="${item.email}"></td>
+                <td th:text="${item.avatar}"></td>
+                <td class="td-manage">
+                    <a title="编辑" th:href="@{/admin/user/edit?id={id}(id=${item.userId})}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>修改密码</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</article>
+<footer th:replace="tmpl/footer :: footer_script"></footer>
+<script type="text/javascript">
+    $(function(){
+
+    });
+
+    function member_add(){
+        layer_show("新增用户","/admin/user/add");
+    }
+</script>
+</body>
+</html>

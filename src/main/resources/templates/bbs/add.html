@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace ="bbs/tmpl/header :: header_meta">
+</head>
+<body>
+	<header class="header container bg-white">
+		<a class="pull-right" th:href="@{/user/add}">
+			<i class="fa fa-plus"></i>&nbsp;发布
+		</a>
+		<a class="pull-left" href="javascript:history.go(-1);"><i class="fa fa-angle-left"></i>&nbsp;返回</a>
+		我的帖子
+	</header>
+	
+	<div class="container bg-white">
+		<form method="post" enctype="multipart/form-data" th:action="@{/user/do_add}">
+		<div class="topic-form">
+			<input class="input-text" type="text" name="topicTitle" placeholder="标题" />
+			<select class="input-text" name="catId" >
+				<option th:value="${item.catId}" th:each="item:${cat_lst}" th:text="${item.catName}"></option>
+			</select>
+			<textarea name="topicContent" style="width:100%;min-height:450px;"></textarea>
+			<button class="input-text mt20">提交</button>
+		</div>
+		</form>
+	</div>
+	
+	<script type="text/javascript" th:src="@{/bbs/js/plugin.js}"></script>
+<footer th:include="bbs/tmpl/kindeditor::kindeditor_script"></footer>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace ="bbs/tmpl/header :: header_meta">
+</head>
+<body>
+	<header class="header container bg-white">
+		<a class="pull-left" href="javascript:history.go(-1);"><i class="fa fa-angle-left"></i>&nbsp;返回</a>
+		帖子详情
+	</header>
+	<input type="hidden" id="topic_id" th:value="${item.topicId}" />
+  	<input id="login_user_id" type="hidden" th:value="${session.user_id}" />
+  	<div id="detail" class="container bg-white">
+  		<h4 th:text="${item.topicTitle}"></h4>
+  		<p class="info">
+  			<span th:text="${item.createDate}"></span>
+  			<span >
+  				<i class="fa fa-eye"></i>浏览量
+  				<span th:text="${item.viewCount}"></span>
+  			</span>
+  			&nbsp;
+  			<span th:if="${is_fav eq 1}" th:data-id="${item.topicId}" class="color-red cancel-fav">
+  				<i class="fa fa-heart"></i>&nbsp;取消关注
+  			</span>
+  			<span th:if="${is_fav eq 0}" th:data-id="${item.topicId}" class="color-gray fav">
+  				<i class="fa fa-heart-o"></i>&nbsp;关注
+  			</span>
+  		</p>
+  		<div id="content" th:utext="${item.topicContent}"></div>
+  	</div>
+  	
+	<div id="cmt" class="container bg-white mt10">
+		<h4>
+			<a id="cmt-topic" th:data-id="${item.topicId}" cmt-type="topic" style="float:right;padding-right:10px;font-size:14px;color:#c24050;">评论</a>
+			评论
+		</h4>
+		
+		<div class="cmt-item" th:each="cmt: ${cmt_lst}">
+			<div class="thumb">
+				<img th:src="${cmt.fromAvatar}" />
+				<span class="nick" th:text="${cmt.fromName}"></span>
+			</div>
+			<div class="cmt" >
+				<div class="cmt-content" th:text="${cmt.cmtContent}"></div>
+				<div th:each="child:${cmt.child}" style="border-bottom:1px solid #ddd;">
+					<div class="thumb">
+						<img th:src="${child.fromAvatar}" />
+						<span class="nick" th:text="${child.fromName}"></span>
+					</div>
+					<div class="reply-content" th:text="${child.cmtContent}"></div>
+					<span class="clear"></span>
+				</div>
+			</div>
+			<a class="reply" th:data-id="${cmt.cmtId}" cmt-type="cmt">回复</a>
+			<div class="clear"></div>
+		</div>
+		<h4 id="reply">回复：</h4>
+		<div style="padding-bottom:20px;">
+			<textarea placeholder="请输入回复" class="reply-textarea mt10">
+			
+			</textarea>
+			<a class="btn mt10" id="pub_cmt" style="float:right;">提交</a>
+			<span class="clear"></span>
+		</div>
+	</div>
+	
+	<div id="footer" >
+		<a class="item on" th:href="@{/index/index}">
+			<i class="fa fa-home"></i>
+			<span>首页</span>
+		</a>
+		<a class="item" th:href="@{/user/lst}">
+			<i class="fa fa-user-o"></i>
+			<span>我发布的</span>
+		</a>
+		<a class="item" th:href="@{/user/fav_lst}">
+			<i class="fa fa-heart-o"></i>
+			<span>我关注的</span>
+		</a>
+	</div>
+	<script type="text/javascript" th:src="@{/bbs/js/plugin.js}"></script>
+	<script type="text/javascript">
+		var global_param = {};
+		var cmt_type = "";
+		var cmt_id = "";
+		$(function(){
+			//取消收藏
+		 	$(".cancel-fav").click(function(){
+		 		
+		 		if(check_login()){
+		 			$.ajax({
+			 			url:"/user/cancel_fav",
+			 			data:{id:$(this).attr('data-id')},
+			 			success:function(data){
+			 				alert(data['result_msg']);
+			 				location.reload();
+			 			}
+			 		});
+		 		}
+		 		
+		 	});
+		 	//收藏
+		 	$(".fav").click(function(){
+		 		if(check_login()){
+			 		$.ajax({
+			 			url:"/user/fav",
+			 			data:{id:$(this).attr('data-id')},
+			 			success:function(data){
+			 				alert(data['result_msg']);
+			 				location.reload();
+			 			}
+			 		});
+		 		}
+		 	});
+		 	//浏览量+1
+		 	setTimeout(function(){
+		 		$.ajax({
+		 			url:"/index/view",
+		 			data:{id:$("#topic_id").val()},
+		 			success:function(data){
+		 				console.log("view + 1");
+		 			}
+		 		})
+		 	},1000);
+		 	
+		 	//评论帖子
+		 	$("#cmt-topic").click(function(){
+		 		cmt_type = $(this).attr("cmt-type");
+		 		cmt_id = $(this).attr('data-id');
+		 	});
+		 	$("#cmt-topic").click();
+		 		 	
+		 	//回复评论
+			$(".reply").click(function(){
+		 		cmt_type = $(this).attr("cmt-type");
+		 		cmt_id = $(this).attr('data-id');
+		 	});
+		 	
+		 	//发表评论
+		 	
+		 	$("#pub_cmt").click(function(){
+		 		if(check_login()){
+		 			$.ajax({
+			 			url:"/user/cmt",
+			 			data:{fk_type:cmt_type,fk_id:cmt_id,content:$(".reply-textarea").val()},
+			 			dataType:'json',
+			 			success:function(data){
+			 				alert(data['result_msg']);
+			 				setTimeout(function(){
+				 				location.reload();
+			 				});
+			 			}
+			 		})
+		 		}
+		 		
+		 	});
+
+		});
+		
+	</script>
+</body>
+</html>

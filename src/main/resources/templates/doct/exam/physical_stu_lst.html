@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+	<nav th:replace="tmpl/header :: breadcrumb('后台管理','帖子管理')"></nav>
+	<article class="page-container">
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+				<form >
+						<input class="input-text" name="tel" type="text" th:value="${tel}" placeholder="请输入手机号码" style="float:left;width:200px;"/>
+						<button class="btn btn-primary " style="float:left;">搜索</button>
+					</form>
+				
+			</div> 
+		<div class="mt-20">
+			 
+			<table
+				class="table table-border table-bordered table-hover table-bg table-sort ">
+				<thead>
+					<tr class="text-c">
+						<th width="80"><input type="checkbox" name="" /></th>
+						<th width="">账户</th>
+						<th width="">手机</th>
+						<th width="">医生</th> 
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-c" th:each="item,itemStat : ${list}">
+						<td><input type="checkbox" name="stu"
+							th:value="${item.stuId}" /></td>
+						<td th:text="${item.stuName}"></td>
+						<td th:text="${item.tel}"></td>
+						<td th:text="${item.doctName}"></td> 
+						<td><a th:href="@{/doct/pyexam/detail(id=${item.testId})}">详细</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="page" th:utext="${page}"></div>
+
+		</div>
+	</article>
+	<footer th:replace="tmpl/footer :: footer_script"></footer>
+	<script type="text/javascript">
+	
+	function getIds(name){
+		var arr = $("input[name="+name+"]:checked");
+		var ids = [];
+		for(var x =0  ; x < arr.length;x++){
+			ids[x] = arr.eq(x).val();
+		}
+		return ids.join(",");
+	}
+    $(function(){
+		$(".btn-submit").click(function(){
+			var stu_id = getIds("stu");
+			var doct_id = getIds("doctor");
+			
+			$.ajax({
+				url:"/admin/exam/py_assign",
+				data:{stu:stu_id,doct:doct_id},
+				dataType:"json",
+				type:"post",
+				success:function(data){
+					location.reload();
+				}
+			})
+		});
+    });
+</script>
+</body>
+</html>

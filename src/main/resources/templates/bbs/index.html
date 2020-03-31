@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace ="bbs/tmpl/header :: header_meta">
+</head>
+<body>
+	<header class="header container bg-white">
+		
+		<a th:if="${not #strings.isEmpty(session.user_id)}" class="pull-right" th:href="@{/login/admin_logout}">
+			<i class="fa fa-login"></i>&nbsp;退出
+		</a>
+		
+		<a th:if="${session.user != null}" style="right:80px;" class="pull-right" th:href="@{/user/user_edit}">
+			<img  th:src="${session.user.avatar}" style="width:28px;height:28px;border-radius:50%;float:left;margin-top:8px;border:1px solid #ddd;"/><i class="fa fa-edit"></i>&nbsp;个人信息修改
+		</a>
+		
+		<a th:if="${#strings.isEmpty(session.user_id)}" class="pull-right" th:href="@{/login/admin_login}">
+			<i class="fa fa-logout"></i>&nbsp;登陆
+		</a>
+		<a class="pull-left" href="javascript:histroy.go(-1);"><i class="fa fa-angle-left"></i>&nbsp;返回</a>
+		首页
+	</header>
+	<div id="search" class="container ph20 mt10" style="display:none;">
+		<form>
+			<a class="search-btn"><i class="fa fa-search"></i></a>
+			<input type="text" class="search-input" placeholder="请输入要搜索的话题"/>
+		</form>
+	</div>
+	
+	<div class="container mt10">
+		<img class="thumb-w" th:src="@{/bbs/images/banner.png}" />
+	</div>
+	
+	<div class="container bg-white mt10 clear" style="padding:10px 20px;">
+		<a class="cat-item cat-item-on" data-id="">
+			<span>全部</span>
+			<i class="fa fa-hand-o-left"></i>
+		</a>
+		<a  class="cat-item " th:data-id="${item.catId}" th:each="item,itemStat : ${cat_lst}" >
+			<span th:text="${item.catName}"></span>
+			<i class="fa fa-hand-o-left"></i>
+		</a>
+	
+	</div>
+	
+	<div id="index-menu" class="container bg-white btm-gray">
+		<a class="item on" data-search="latest">最新</a>
+		<a class="item" data-search="hotest">最热</a>
+		<a class="item" data-search="recmd">推荐</a>
+		<span class="clear"></span>
+	</div>
+	
+	<div id="topic-list" class="container bg-white">
+		<div class="topic-item">
+			<header>
+				<span class="date">14:35</span>
+				<img class="avatar" />
+				<span class="nick">Admin</span>
+				<span class="clear"></span>
+			</header>
+			<article>
+				<h4>你是不是也一样，只在拉屎的时候看书</h4>
+				<p>
+					你是不是也是这样你是不是也是这样你是不是也是这样你是不是也是这样你是不是也是这样你是不是也是这样
+				</p>
+			</article>
+			<footer>
+				<span class="fav rt"><i class="fa fa-heart-o"></i></span>
+				<span class="cmt rt"><i class="fa fa-comment-o"></i>&nbsp; 0</span>
+				<span class="clear"></span>
+			</footer>
+		</div>
+	</div>
+	
+	<div id="footer" >
+		<a class="item on" th:href="@{/index/index}">
+			<i class="fa fa-home"></i>
+			<span>首页</span>
+		</a>
+		<a class="item" th:href="@{/user/lst}">
+			<i class="fa fa-user-o"></i>
+			<span>我发布的</span>
+		</a>
+		<a class="item" th:href="@{/user/fav_lst}">
+			<i class="fa fa-heart-o"></i>
+			<span>我关注的</span>
+		</a>
+	</div>
+	<script type="text/javascript" th:src="@{/bbs/js/plugin.js}"></script>
+	<script type="text/javascript">
+		var global_param = {};
+		$(function(){
+			
+			$(".cat-item").click(function(){
+				$(this).addClass("cat-item-on").siblings('.cat-item').removeClass("cat-item-on");
+				generate_param();
+				more($("#topic-list"));
+			})
+			
+			$("#index-menu a.item").click(function(){
+				$(this).addClass("on").siblings(".item").removeClass("on");
+				generate_param();
+				more($("#topic-list"));
+			});
+			
+			$(".cat-item").eq(0).click();
+			
+			/* $(".search-btn").click(function(){
+				
+			}); */
+		});
+		
+		function more(wrap){
+			$.ajax({
+				url:"lst",
+					type:"post",
+					dataType:"json",
+					data:global_param,
+					success:function(data){
+						topic_init($("#topic-list"), data['result_arr']['lst']);
+					}
+			})
+		}
+		
+		function generate_param(){
+			var param = {}
+			var title = $(".search-input").val();
+			if(title.trim().length > 0){
+				param['title'] = title
+			}
+			var cat = $(".cat-item-on").attr('data-id');
+			if(cat.length > 0){
+				param['cat_id'] = cat;
+			}
+			var order = $("#index-menu a.on").attr("data-search");
+			param['search_type'] = order;
+			param['p'] = 1;
+			global_param = param;
+			console.log(param);
+		}
+	</script>
+</body>
+</html>

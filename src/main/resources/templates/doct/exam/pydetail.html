@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+	<nav th:replace="tmpl/header :: breadcrumb('后台管理','帖子管理')"></nav>
+	<article class="page-container">
+		<div class="mt-20">
+		<style type="text/css">
+			#mytable tr td:nth-child(odd){
+				width:100px;
+				text-align:right;
+				padding-right:20px;
+			}
+			#mytable tr td:nth-child(even){
+				width:350px;
+			}
+			.input-text{
+				width:200px;
+			}
+			span.text{
+				padding:0 10px;line-height:35px;
+			}
+		</style>
+		<form action="/doct/pyexam/update">
+			<input type="hidden" name="testId" th:value="${item.testId}" />
+			<table id="mytable" 
+				class="table table-border table-bordered table-hover table-bg table-sort ">
+				
+				<tbody>
+					<tr>
+						<td>姓名</td>
+						<td th:text="${name}"></td>
+						<td>性别</td>
+						<td>
+							<select class="input-select" name="sex" th:field="${item.sex}"  th:switch="${item.sex}">
+								<option th:selected="${item.sex==1}" value="1">男</option>
+								<option th:selected="${item.sex==2}" value="2">女</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>身高</td>
+						<td><input type="text" name="height" class="input-text" th:value="${item.height}" /><span class="text">cm</span></td>
+						<td>体重</td>
+						<td><input type="text" name="weight" class="input-text"  th:value="${item.weight}"></td>
+					</tr>
+					<tr>
+						<td>肺活量</td>
+						<td><input type="text" name="vitalCapacity" class="input-text"  th:value="${item.vitalCapacity}"></td>
+						<td>听力</td>
+						<td><input type="text" name="hearing" class="input-text"  th:value="${item.hearing}"></td>
+					</tr>
+					<tr>
+						<td>左眼</td>
+						<td><input type="text" name="leftEye" class="input-text"  th:value="${item.leftEye}"></td>
+						<td>右眼</td>
+						<td><input type="text" name="rightEye" class="input-text"  th:value="${item.rightEye}"></td>
+					</tr>
+					<tr>
+						<td>建议</td>
+						<td><input type="text" name="advice" class="input-text"  colspan="3" style="min-height:48px;" th:value="${item.advice}"></td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<div>
+				<button class="btn-primary btn" type="submit">保存</button>
+			</div>
+			</form>
+		</div>
+	</article>
+	<footer th:replace="tmpl/footer :: footer_script"></footer>
+	<script type="text/javascript">
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+
+<div class="loginWrapr">
+    <div id="loginform" class="loginBox">
+        <form class="form form-horizontal" th:action="@{/login/do_admin_login}" method="post">
+
+            <div class="Huialert Huialert-error" th:if="${error != null}"><i class="Hui-iconfont">&#xe6a6;</i><span th:text="${error}"></span></div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="fa fa-user"></i></label>
+                <div class="formControls col-xs-8">
+                    <input id="tel" name="login_name" type="text" placeholder="账户" value="张老师" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="fa fa-key"></i></label>
+                <div class="formControls col-xs-8">
+                    <input id="pwd" name="login_pwd" type="password" placeholder="密码" value="123" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="formControls col-xs-8 col-xs-offset-3">
+                    <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                    <a class="btn btn-default radius size-L" th:href="@{/login/reg}" >注册 </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:include="tmpl/footer :: footer_script"></footer>
+</body>
+</html>

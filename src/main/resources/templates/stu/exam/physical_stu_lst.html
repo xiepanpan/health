@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+	<nav th:replace="tmpl/header :: breadcrumb('后台管理','帖子管理')"></nav>
+	<article class="page-container">
+		<!-- <div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l"> <a
+				th:href="@{/admin/exam/physical_exam_generate}"
+				class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
+					<span>生成测试</span>
+			</a>
+			</span> <span class="r">共有：<strong th:text="${list.size()}"></strong>
+				条
+			</span>
+		</div> -->
+		<div class="mt-20">
+			<!-- <div style="margin-bottom:20px;"> 
+				<a class="btn btn-primary btn-submit">分配医生</a> 
+				<label th:each="item,itemStat:${doctLst}"> 
+					<input type="radio" name="doctor" th:value="${item.userId}" /> 
+					<span th:text="${item.loginName}"></span>
+				</label>
+			</div> -->
+			<table
+				class="table table-border table-bordered table-hover table-bg table-sort ">
+				<thead>
+					<tr class="text-c">
+						<th width="80"><input type="checkbox" name="" /></th>
+						<th width="">账户</th>
+						<th width="">医生</th> 
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-c" th:each="item,itemStat : ${list}">
+						<td><input type="checkbox" name="stu"
+							th:value="${item.stuId}" /></td>
+						<td th:text="${item.stuName}"></td>
+						<td th:text="${item.doctName}"></td> 
+						<td><a th:href="@{/stu/pyexam/detail?id={id}(id=${item.testId})}" >查看</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="page" th:utext="${page}"></div>
+
+		</div>
+	</article>
+	<footer th:replace="tmpl/footer :: footer_script"></footer>
+	<script type="text/javascript">
+	
+	function getIds(name){
+		var arr = $("input[name="+name+"]:checked");
+		var ids = [];
+		for(var x =0  ; x < arr.length;x++){
+			ids[x] = arr.eq(x).val();
+		}
+		return ids.join(",");
+	}
+    $(function(){
+		$(".btn-submit").click(function(){
+			var stu_id = getIds("stu");
+			var doct_id = getIds("doctor");
+			
+			$.ajax({
+				url:"/admin/exam/py_assign",
+				data:{stu:stu_id,doct:doct_id},
+				dataType:"json",
+				type:"post",
+				success:function(data){
+					location.reload();
+				}
+			})
+		});
+    });
+</script>
+</body>
+</html>

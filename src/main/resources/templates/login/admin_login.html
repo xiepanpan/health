@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body style="background-color:#f2f2f2;">
+<style type="text/css">
+	.loginBox{
+		display:block;width:100%;height:auto;max-width:480px;border:1px solid #ddd;margin:30px auto;background-color:white;padding-bottom:20px;
+		height:auto;
+		padding-top:20px;
+	}
+	.loginBox .form-label{
+		text-align:right;line-height:41px;font-size:16px;
+	}
+</style>
+<div class="container" style="text-align:center;padding-top:200px;">
+	<h4 style="font-size:24px;color:#333;">大学生体质健康测试管理系统登陆</h4>
+</div>
+<div class="loginWrapr">
+    <div id="loginform" class="loginBox">
+        <form class="form form-horizontal" th:action="@{/login/do_admin_login}" method="post">
+
+            <div class="Huialert Huialert-error" th:if="${error != null}"><i class="Hui-iconfont">&#xe6a6;</i><span th:text="${error}"></span></div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="fa fa-user"></i>&nbsp;账户</label>
+                <div class="formControls col-xs-8">
+                    <input id="tel" name="login_name" type="text" placeholder="账户" value="张医生" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="fa fa-key"></i>&nbsp;密码</label>
+                <div class="formControls col-xs-8">
+                    <input id="pwd" name="login_pwd" type="password" placeholder="密码" value="123123" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3">&nbsp;验证码</label>
+                <div class="formControls col-xs-8">
+                    <input id="yzm" name="yzm" type="text" placeholder="验证码" value="" style="width:80px" class="input-text size-L">
+                    <span style="display:inline-block;width:120px;padding-left:10px;" th:text="${yzm}" ></span>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="formControls col-xs-8 col-xs-offset-3">
+                    <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;" />
+                    <a  id="reset" class="btn btn-success radius size-L" value="">&nbsp;重&nbsp;&nbsp;&nbsp;&nbsp;置&nbsp;</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:include="tmpl/footer :: footer_script"></footer>
+<script type="text/javascript">
+	$(function(){
+		$("#reset").click(function(){
+			$("input.input-text").val("");
+		})
+	})
+</script>
+</body>
+</html>

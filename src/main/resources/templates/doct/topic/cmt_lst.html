@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="tmpl/header :: header_meta">
+</head>
+<body>
+<nav th:replace="tmpl/header :: breadcrumb('后台管理','评论管理')"></nav>
+<article class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+        	<a th:href="@{/admin/topic/lst}"   class="btn btn-primary radius">
+				<span>返回</span>
+            </a>
+        </span>
+        <span class="r">共有：<strong th:text="${list.size()}"></strong> 条</span>
+    </div>
+    <div class="mt-20">
+
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="80">ID</th>
+                <th width="100">评论内容</th>
+                <th width="100">评论人</th> 
+                <th width="100">发布时间</th>
+                <th width="260">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="item,itemStat : ${list}">
+                <td th:text="${item.cmtId}"></td>
+                <td th:text="${item.cmtContent}"></td>
+                <td th:text="${item.fromName}"></td>
+                <td th:text="${#dates.format(item.createDate, 'dd/MMM/yyyy HH:mm')}"></td>
+                <td class="td-manage">
+                    <a title="删除" th:href="@{/admin/topic/cmtdel?(cmtId=${item.cmtId},topicId=${param.id})}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</article>
+<footer th:replace="tmpl/footer :: footer_script"></footer>
+<script type="text/javascript">
+    $(function(){
+
+    });
+</script>
+</body>
+</html>

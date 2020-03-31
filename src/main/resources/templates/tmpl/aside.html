@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<body>
+
+<div th:fragment="admin_aside"  >
+    <aside class="Hui-aside">
+        <div class="menu_dropdown bk_2">
+            <dl id="menu-member">
+                <dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul>
+                        <li><a th:data-href="@{/admin/user/lst?r=0}" data-title=" 用户管理" href="javascript:;"> 管理员管理</a></li>
+                        <li><a th:data-href="@{/admin/user/lst?r=1}" data-title=" 用户管理" href="javascript:;"> 学生管理</a></li>
+                        <li><a th:data-href="@{/admin/user/lst?r=2}" data-title=" 用户管理" href="javascript:;"> 医生管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-cat">
+                <dt><i class="Hui-iconfont">&#xe60d;</i> 体制新闻管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul>
+                        <li><a th:data-href="@{/admin/topic/lst}" data-title="新闻管理" href="javascript:;">新闻管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-topic">
+                <dt><i class="Hui-iconfont">&#xe60d;</i> 测试管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul>
+                        <li><a th:data-href="@{/admin/exam/lst?type=1}" data-title="生活习惯管理" href="javascript:;">生活习惯管理</a></li>
+                        <li><a th:data-href="@{/admin/exam/lst?type=2}" data-title="生活习惯管理" href="javascript:;">心理健康管理</a></li>
+                        <li><a th:data-href="@{/admin/pyexam/lst}" data-title="生活习惯管理" href="javascript:;">体质测试管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            
+           
+        </div>
+    </aside>
+    <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
+</div>
+
+
+</body>
+</html>
